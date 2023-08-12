@@ -2,6 +2,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
     id("com.android.library")
+    id("maven-publish")
 }
 
 version = "1.0.0"
@@ -16,7 +17,6 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
-        publishAllLibraryVariants()
     }
     iosX64()
     iosArm64()
@@ -28,19 +28,19 @@ kotlin {
         version = "1.0"
         ios.deploymentTarget = "14.1"
 
+        pod("FirebaseFirestore")
+
         framework {
-            baseName = "firebase_app"
+            baseName = "firebase_firestore"
         }
-
-        noPodspec()
-
-        pod("FirebaseCore")
     }
     
     sourceSets {
         val commonMain by getting {
             dependencies {
-                //put your multiplatform dependencies here
+                api(project(":firebase_app"))
+
+                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }
         val commonTest by getting {
@@ -51,19 +51,14 @@ kotlin {
 
         val androidMain by getting {
             dependencies {
-                implementation("androidx.activity:activity-ktx:1.7.2")
-                implementation("androidx.appcompat:appcompat:1.6.1")
-                implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
-                api("com.google.firebase:firebase-common")
+                implementation("com.google.firebase:firebase-firestore-ktx")
             }
         }
-
-        val appleMain by getting
     }
 }
 
 android {
-    namespace = "com.nekzabirov.firebaseapp"
+    namespace = "com.nekzabirov.firebasefirestore"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

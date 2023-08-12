@@ -1,6 +1,6 @@
 package com.nekzabirov.firebaseauth.user
 
-expect class UserUpdateProfileRequest
+expect class UserUpdateProfileRequest()
 
 expect var UserUpdateProfileRequest.displayName: String?
 

@@ -4,6 +4,7 @@ import cocoapods.FirebaseCore.FIRApp
 
 actual typealias KFirebaseApp = FIRApp
 
-actual fun KFirebaseApp.initialize(context: KContext) {
+actual fun initializeFirebase(context: KContext): KFirebaseApp {
     FIRApp.initialize()
+    return FIRApp.defaultApp()!!
 }
