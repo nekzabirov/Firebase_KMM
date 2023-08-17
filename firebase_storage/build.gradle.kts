@@ -16,6 +16,7 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+        publishAllLibraryVariants()
     }
     iosX64()
     iosArm64()
@@ -30,7 +31,7 @@ kotlin {
         pod("FirebaseStorage")
 
         framework {
-            baseName = "firebase_firestore"
+            baseName = "firebase_firestorage"
         }
     }
     
@@ -55,7 +56,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.nekzabirov.firebasestorage"
+    namespace = "com.nekzabirov.firestorage"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

@@ -17,6 +17,7 @@ kotlin {
                 jvmTarget = "1.8"
             }
         }
+        publishAllLibraryVariants()
     }
     iosX64()
     iosArm64()
@@ -58,7 +59,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.nekzabirov.firebasefirestore"
+    namespace = "com.nekzabirov.firestore"
     compileSdk = 33
     defaultConfig {
         minSdk = 24

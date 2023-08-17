@@ -5,8 +5,8 @@ import com.google.firebase.storage.ktx.storage
 
 actual class KFireStorage {
     actual companion object {
-        private val instance by lazy { KFireStorage() }
-        actual fun getInstance(): KFireStorage = instance
+        private val instanceN by lazy { KFireStorage() }
+        actual fun getInstance(): KFireStorage = instanceN
     }
 
     private val storage = Firebase.storage

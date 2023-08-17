@@ -1,24 +1,24 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'firebase_storage'
+    spec.name                     = 'firebase_functions'
     spec.version                  = '1.0'
     spec.homepage                 = 'Link to the Shared Module homepage'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
     spec.summary                  = 'Some description for the Shared Module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/firebase_firestorage.framework'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/firebase_functions.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '14.1'
-    spec.dependency 'FirebaseStorage'
+    spec.dependency 'FirebaseFunctions'
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':firebase_storage',
-        'PRODUCT_MODULE_NAME' => 'firebase_firestorage',
+        'KOTLIN_PROJECT_PATH' => ':firebase_functions',
+        'PRODUCT_MODULE_NAME' => 'firebase_functions',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build firebase_storage',
+            :name => 'Build firebase_functions',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
