@@ -4,7 +4,7 @@ plugins {
     id("com.android.library")
 }
 
-version = "1.0.0"
+version = "1.0.1"
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -66,6 +66,6 @@ android {
     namespace = "com.nekzabirov.firebaseapp"
     compileSdk = 33
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
     }
 }

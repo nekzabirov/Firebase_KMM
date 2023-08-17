@@ -20,8 +20,8 @@ subprojects {
                 url = uri("https://maven.pkg.github.com/nekzabirov/Firebase_KMM")
 
                 credentials {
-                    username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                    password = project.findProperty("gpr.token") as String? ?: System.getenv("TOKEN")
+                    username = "nekzabirov"
+                    password = "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"
                 }
             }
         }
