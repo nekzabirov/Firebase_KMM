@@ -28,13 +28,16 @@ kotlin {
         version = "1.0"
         ios.deploymentTarget = "14.1"
 
+        framework {
+            baseName = "firebase_auth"
+            isStatic = true
+        }
+
         pod("FirebaseAuth")
         pod("GoogleSignIn")
         pod("FBSDKLoginKit")
 
-        framework {
-            baseName = "firebase_auth"
-        }
+        noPodspec()
     }
     
     sourceSets {
