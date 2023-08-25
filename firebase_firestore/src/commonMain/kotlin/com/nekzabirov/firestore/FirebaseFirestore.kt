@@ -2,6 +2,7 @@ package com.nekzabirov.firestore
 
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.coroutines.flow.Flow
 
 expect class FirebaseFirestore
 expect class CollectionReference: FireQuery
@@ -50,3 +51,5 @@ expect fun DocumentSnapshot.getArrayString(key: String): List<String>?
 expect fun DocumentSnapshot.getBool(key: String): Boolean?
 
 expect fun DocumentSnapshot.reference(): DocumentReference
+
+expect fun DocumentReference.snapshot(): Flow<DocumentSnapshot>

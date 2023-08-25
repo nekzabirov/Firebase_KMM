@@ -5,8 +5,6 @@ plugins {
     id("maven-publish")
 }
 
-version = "1.0.1"
-
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
     targetHierarchy.default()
@@ -41,6 +39,7 @@ kotlin {
             dependencies {
                 api(project(":firebase_app"))
 
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
             }
         }

@@ -1,6 +1,5 @@
 package com.nekzabirov.firebaseauth
 
-import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.user.KFireUser
 
 expect class KFireAuth private constructor() {
@@ -14,15 +13,11 @@ expect class KFireAuth private constructor() {
         suspend fun getCredential(verificationID: String, verificationCode: String): KFireCredential
     }
 
-    inner class Google internal constructor(activity: KActivity) {
-        suspend fun request(clientID: String): String
-
+    inner class Google internal constructor() {
         suspend fun getCredential(idToken: String): KFireCredential
     }
 
-    inner class Facebook internal constructor(activity: KActivity) {
-        suspend fun request(): String
-
+    inner class Facebook internal constructor() {
         suspend fun getCredential(accessToken: String): KFireCredential
     }
 
@@ -33,6 +28,10 @@ expect class KFireAuth private constructor() {
     val currentUser: KFireUser?
 
     val phone: Phone
+
+    val google: Google
+
+    val facebook: Facebook
 
     suspend fun signInWithCredential(credential: KFireCredential): Boolean
 }

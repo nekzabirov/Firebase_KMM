@@ -1,4 +1,4 @@
-<h1>Fireabse SDK for Kotlin Mutiplaform KMM <img alt="version" src="https://img.shields.io/badge/version-1.0.1-yellow.svg"> </h1>
+<h1>Fireabse SDK for Kotlin Mutiplaform KMM <img alt="version" src="https://img.shields.io/badge/version-1.0.4-yellow.svg"> </h1>
 
 The firebase SDK that you can implemnt into your common dependency of KMM project with supporting target <strong>iOS</strong> & <strong>Android</strong>.
 
@@ -14,8 +14,8 @@ The firebase SDK that you can implemnt into your common dependency of KMM projec
 
 The following libraries are available for the various Firebase products.
 
-| Service or Product	                                                         | Gradle Dependency                                            |
-|--------------------------------------------------------------------------------|:-------------------------------------------------------------|
+| Service or Product	                                                         | Gradle Dependency                                            | Nek |
+|--------------------------------------------------------------------------------|:-------------------------------------------------------------| ---- |
 | [Authentication](https://firebase.google.com/docs/auth)                        | `com.nekzabirov.firebase:firebase_auth:$last_version`        |
 | [Cloud Firestore](https://firebase.google.com/docs/firestore)                  | `com.nekzabirov.firebase:firebase_firestore:$last_version`   |
 | [Cloud Functions](https://firebase.google.com/docs/functions)                  | `com.nekzabirov.firebase:firebase_functions:$last_version`   |

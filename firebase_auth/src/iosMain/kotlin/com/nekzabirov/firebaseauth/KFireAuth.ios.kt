@@ -1,16 +1,12 @@
 package com.nekzabirov.firebaseauth
 
-import cocoapods.GoogleSignIn.GIDConfiguration
+import cocoapods.FirebaseAuth.*
 import cocoapods.GoogleSignIn.GIDGoogleUser
-import cocoapods.GoogleSignIn.GIDSignIn
 import com.nekzabirov.firebaseapp.AuthFail
-import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.user.KFireUser
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
-import cocoapods.FBSDKLoginKit.FBSDKLoginManager
-import cocoapods.FirebaseAuth.*
 
 actual class KFireAuth {
     actual inner class Phone {
@@ -41,10 +37,10 @@ actual class KFireAuth {
         }
     }
 
-    actual inner class Google internal actual constructor(private val activity: KActivity) {
+    actual inner class Google internal actual constructor() {
         private var lastUser: GIDGoogleUser? = null
 
-        actual suspend fun request(clientID: String): String = suspendCoroutine { cont ->
+        /*suspend fun request(clientID: String): String = suspendCoroutine { cont ->
             GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID)
 
             GIDSignIn.sharedInstance.signInWithPresentingViewController(activity) { result, error ->
@@ -56,7 +52,7 @@ actual class KFireAuth {
                 } else
                     cont.resumeWithException(AuthFail("User declined Google sign in"))
             }
-        }
+        }*/
 
         actual suspend fun getCredential(idToken: String): KFireCredential {
             return FireCredential(
@@ -68,8 +64,8 @@ actual class KFireAuth {
         }
     }
 
-    actual inner class Facebook internal actual constructor(private val activity: KActivity) {
-        actual suspend fun request(): String = suspendCoroutine { cont ->
+    actual inner class Facebook internal actual constructor() {
+       /* actual suspend fun request(): String = suspendCoroutine { cont ->
             FBSDKLoginManager().logInWithPermissions(
                 listOf("public_profile"),
                 activity
@@ -81,7 +77,7 @@ actual class KFireAuth {
                 else
                     cont.resumeWithException(AuthFail("User declined Facebook login"))
             }
-        }
+        }*/
 
         actual suspend fun getCredential(accessToken: String): KFireCredential {
             return FIRFacebookAuthProvider.credentialWithAccessToken(accessToken).let {
@@ -102,6 +98,10 @@ actual class KFireAuth {
         get() = firAuth.currentUser()?.let { KFireUser(it) }
 
     actual val phone: Phone by lazy { Phone() }
+
+    actual val google: Google by lazy { Google() }
+
+    actual val facebook: Facebook by lazy { Facebook() }
 
     actual suspend fun signInWithCredential(credential: KFireCredential): Boolean = suspendCoroutine { cont ->
         firAuth.signInWithCredential(credential.platform) { result, error ->

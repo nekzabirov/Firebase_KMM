@@ -6,6 +6,9 @@ import cocoapods.FirebaseFirestore.FIRDocumentSnapshot
 import cocoapods.FirebaseFirestore.FIRFirestore
 import cocoapods.FirebaseFirestore.FIRQuery
 import cocoapods.FirebaseFirestore.FIRTimestamp
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
@@ -117,4 +120,11 @@ actual fun DocumentSnapshot.getBool(key: String): Boolean? {
 
 actual fun DocumentSnapshot.reference(): DocumentReference {
     return this.reference
+}
+
+actual fun DocumentReference.snapshot(): Flow<DocumentSnapshot> = channelFlow {
+    addSnapshotListener { firDocumentSnapshot, nsError ->
+        if (firDocumentSnapshot != null)
+            trySend(firDocumentSnapshot)
+    }
 }

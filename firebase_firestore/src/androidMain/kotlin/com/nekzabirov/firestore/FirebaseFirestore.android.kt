@@ -2,7 +2,9 @@ package com.nekzabirov.firestore
 
 import android.annotation.SuppressLint
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.snapshots
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.tasks.await
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -88,9 +90,7 @@ actual fun DocumentSnapshot.getStringKt(key: String): String? =
     this.getString(key)
 
 actual fun DocumentSnapshot.getLocalDateTime(key: String): LocalDateTime? =
-    this.getDate(key)?.let {
-        it.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
-    }?.toKotlinLocalDateTime()
+    this.getDate(key)?.toInstant()?.atZone(ZoneId.systemDefault())?.toLocalDateTime()?.toKotlinLocalDateTime()
 
 actual fun DocumentSnapshot.getArrayString(key: String): List<String>? =
     this.get(key) as? List<String>
@@ -101,4 +101,8 @@ actual fun DocumentSnapshot.getBool(key: String): Boolean? {
 
 actual fun DocumentSnapshot.reference(): DocumentReference {
     return this.reference
+}
+
+actual fun DocumentReference.snapshot(): Flow<DocumentSnapshot> {
+    return this.snapshots()
 }

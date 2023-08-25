@@ -1,21 +1,8 @@
 package com.nekzabirov.firebaseauth
 
-import android.app.Activity
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import com.facebook.login.widget.LoginButton
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.nekzabirov.firebaseapp.AuthFail
-import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.user.KFireUser
 import kotlinx.coroutines.tasks.await
 import java.util.concurrent.TimeUnit
@@ -52,8 +39,8 @@ actual class KFireAuth {
 
     }
 
-    actual inner class Google internal actual constructor(private val activity: KActivity) {
-        actual suspend fun request(clientID: String): String = suspendCoroutine { cont ->
+    actual inner class Google internal actual constructor() {
+        /*actual suspend fun request(clientID: String): String = suspendCoroutine { cont ->
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(clientID)
                 .requestEmail()
@@ -82,15 +69,15 @@ actual class KFireAuth {
             val signInIntent = googleSignInClient.signInIntent
 
             startForResult.launch(signInIntent)
-        }
+        }*/
 
         actual suspend fun getCredential(idToken: String): KFireCredential {
             return GoogleAuthProvider.getCredential(idToken, null)
         }
     }
 
-    actual inner class Facebook internal actual constructor(private val activity: KActivity) {
-        actual suspend fun request(): String = suspendCoroutine { cont ->
+    actual inner class Facebook internal actual constructor() {
+        /*actual suspend fun request(): String = suspendCoroutine { cont ->
             val callbackManager = CallbackManager.Factory.create()
 
             LoginManager.getInstance().registerCallback(
@@ -112,7 +99,7 @@ actual class KFireAuth {
 
             LoginManager.getInstance()
                 .logInWithReadPermissions(activity, listOf("public_profile"))
-        }
+        }*/
 
         actual suspend fun getCredential(accessToken: String): KFireCredential {
             return FacebookAuthProvider.getCredential(accessToken)
@@ -133,6 +120,10 @@ actual class KFireAuth {
         }
 
     actual val phone: Phone by lazy { Phone() }
+
+    actual val google: Google by lazy { Google() }
+
+    actual val facebook: Facebook by lazy { Facebook() }
 
     actual suspend fun signInWithCredential(credential: KFireCredential): Boolean {
         val result = firebaseAuth.signInWithCredential(credential)
