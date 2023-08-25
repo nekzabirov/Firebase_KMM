@@ -26,6 +26,7 @@ Is the Firebase library or API you need missing? [Create an issue](https://githu
 ## Setup
 
 <h3>Add cocapods plugin</h3>
+
 ```
 plugins {
     ...
@@ -35,6 +36,7 @@ plugins {
 ```
 
 <h4>Pods init</h4>
+
 ```
 cocoapods {
     ...
@@ -46,7 +48,6 @@ cocoapods {
 ```
 
 `ios.deploymentTarget` is important must be 14.1 or newer
-
 
 <h3>Dependencies</h3>
 
