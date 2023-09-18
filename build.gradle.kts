@@ -7,7 +7,7 @@ plugins {
 }
 
 subprojects {
-    this.version = "1.0.4"
+    this.version = "1.0.0"
 
     this.plugins.apply("maven-publish")
 
@@ -22,8 +22,8 @@ subprojects {
                 url = uri("https://maven.pkg.github.com/nekzabirov/Firebase_KMM")
 
                 credentials {
-                    username = getLocalProperty("gpr.user") ?: System.getenv("USERNAME")
-                    password = getLocalProperty("gpr.token") ?: System.getenv("TOKEN")
+                    username = System.getenv("GITHUB_USERNAME")
+                    password = System.getenv("GITHUB_WRITE_TOKEN")
                 }
             }
         }
@@ -39,20 +39,6 @@ tasks.register("clean", Delete::class) {
     }
 }
 
-tasks.register("publishAllToLocalMaven") {
-    dependsOn(subprojects.mapNotNull { it.tasks["publishToMavenLocal"] })
-}
-
-fun getLocalProperty(propertyName: String): String? {
-    val properties = java.util.Properties()
-    val localPropertiesFile = rootProject.file("local.properties").inputStream()
-    try {
-        properties.load(localPropertiesFile)
-        return properties.getProperty(propertyName)
-    } catch (e: Exception) {
-        println("Error reading local.properties file.")
-        return null
-    } finally {
-        localPropertiesFile.close()
-    }
+tasks.register("publishAll") {
+    dependsOn(subprojects.mapNotNull { it.tasks["publish"] })
 }

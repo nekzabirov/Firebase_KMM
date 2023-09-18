@@ -28,11 +28,12 @@ kotlin {
 
         framework {
             baseName = "firebase_app"
+            isStatic = false
         }
 
         noPodspec()
 
-        pod("FirebaseCore")
+        pod("FirebaseCore") { version = "10.15.0" }
     }
     
     sourceSets {
