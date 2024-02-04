@@ -1,17 +1,16 @@
 plugins {
-    id("com.android.library").version("8.1.0-rc01").apply(false)
-    kotlin("multiplatform").version("1.9.0").apply(false)
-    id("com.google.gms.google-services").version("4.3.15").apply(false)
-    kotlin("plugin.serialization").version("1.9.0").apply(false)
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.serialization) apply false
     id("maven-publish")
 }
 
 subprojects {
-    this.version = "1.0.0"
+    version = "1.0.0"
 
-    this.plugins.apply("maven-publish")
+    plugins.apply("maven-publish")
 
-    this.publishing {
+    publishing {
         publications {}
 
         repositories {
@@ -29,7 +28,7 @@ subprojects {
         }
     }
 
-    this.group = "com.nekzabirov.firebase"
+    group = "com.nekzabirov.firebase"
 }
 
 tasks.register("clean", Delete::class) {
@@ -41,4 +40,8 @@ tasks.register("clean", Delete::class) {
 
 tasks.register("publishAll") {
     dependsOn(subprojects.mapNotNull { it.tasks["publish"] })
+}
+
+tasks.register("publishLocalAll") {
+    dependsOn(subprojects.mapNotNull { it.tasks["publishLocal"] })
 }

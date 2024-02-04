@@ -1,13 +1,11 @@
 plugins {
-    kotlin("multiplatform")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
     kotlin("native.cocoapods")
-    id("com.android.library")
 }
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
-    targetHierarchy.default()
-
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -16,6 +14,7 @@ kotlin {
         }
         publishAllLibraryVariants()
     }
+
     iosX64()
     iosArm64()
     iosSimulatorArm64()
@@ -33,38 +32,28 @@ kotlin {
 
         noPodspec()
 
-        pod("FirebaseCore") { version = "10.15.0" }
+        pod("FirebaseCore")  {
+            extraOpts += listOf("-compiler-option", "-fmodules")
+            git("https://github.com/firebase/firebase-ios-sdk.git")
+        }
     }
     
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                //put your multiplatform dependencies here
-            }
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.ktx)
+            implementation(libs.androidx.appcompat)
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:32.1.1"))
+            //noinspection UseTomlInstead
+            implementation("com.google.firebase:firebase-common")
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-
-        val androidMain by getting {
-            dependencies {
-                implementation("androidx.activity:activity-ktx:1.7.2")
-                implementation("androidx.appcompat:appcompat:1.6.1")
-                implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
-                implementation("com.google.firebase:firebase-common")
-            }
-        }
-
-        val appleMain by getting
     }
 }
 
 android {
     namespace = "com.nekzabirov.firebaseapp"
-    compileSdk = 33
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
+
     defaultConfig {
-        minSdk = 26
+        minSdk = libs.versions.android.minSdk.get().toInt()
     }
 }

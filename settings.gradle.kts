@@ -1,3 +1,6 @@
+rootProject.name = "FirebaseKMM"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 pluginManagement {
     repositories {
         google()
@@ -15,9 +18,4 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "FirebaseApp"
 include(":firebase_app")
-include(":firebase_auth")
-include(":firebase_storage")
-include(":firebase_firestore")
-include(":firebase_functions")
