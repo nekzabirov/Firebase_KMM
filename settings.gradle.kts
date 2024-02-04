@@ -19,3 +19,4 @@ dependencyResolutionManagement {
 }
 
 include(":firebase_app")
+include(":firebase_auth")

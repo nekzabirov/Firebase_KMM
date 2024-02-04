@@ -1,6 +1,6 @@
-<h1>Fireabse SDK for Kotlin Mutiplaform KMM <img alt="version" src="https://img.shields.io/badge/version-1.0.4-yellow.svg"> </h1>
+<h1>Firebase SDK for Kotlin Multiplatform KMM <img alt="version" src="https://img.shields.io/badge/version-1.0.4-yellow.svg"> </h1>
 
-The firebase SDK that you can implemnt into your common dependency of KMM project with supporting target <strong>iOS</strong> & <strong>Android</strong>.
+The firebase SDK that you can implement into your common dependency of KMM project with supporting target <strong>iOS</strong> & <strong>Android</strong>.
 
 ## Supporting targets
 
@@ -35,18 +35,6 @@ plugins {
 }
 ```
 
-<h4>Pods init</h4>
-
-```
-cocoapods {
-    ...
-    ios.deploymentTarget = "14.1"
-    ...
-    pod("FirebaseCore")
-    ...
-}
-```
-
 `ios.deploymentTarget` is important must be 14.1 or newer
 
 <h3>Dependencies</h3>
@@ -62,22 +50,5 @@ val commonMain by getting {
             }
         }
 ```
-
-<h4>Android</h4>
-
-```
-val androidMain by getting {
-            dependencies {
-                ...
-                implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
-                implementation("com.google.firebase:firebase-common")
-                ...
-            }
-        }
-```
-
-<h4>IOS</h4>
-
-Setup cocoapods
 
 

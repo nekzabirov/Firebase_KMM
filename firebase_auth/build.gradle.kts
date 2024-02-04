@@ -24,20 +24,23 @@ kotlin {
         ios.deploymentTarget = libs.versions.iosDeploymentTarget.get()
 
         framework {
-            baseName = "firebase_app"
+            baseName = "firebase_auth"
             isStatic = false
         }
 
-        pod("FirebaseCore")  {
+        pod("FirebaseAuth")  {
             extraOpts += listOf("-compiler-option", "-fmodules")
             git("https://github.com/firebase/firebase-ios-sdk.git")
         }
     }
-    
+
     sourceSets {
+        commonMain.dependencies {
+            api(project(":firebase_app"))
+        }
+
         androidMain.dependencies {
-            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:32.1.1"))
-            implementation("com.google.firebase:firebase-common")
+            implementation("com.google.firebase:firebase-auth")
         }
     }
 }
