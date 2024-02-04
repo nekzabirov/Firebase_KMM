@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
     spec.name                     = 'firebase_app'
-    spec.version                  = '1.0.0'
+    spec.version                  = '2.0.0'
     spec.homepage                 = ''
     spec.source                   = { :http=> ''}
     spec.authors                  = ''

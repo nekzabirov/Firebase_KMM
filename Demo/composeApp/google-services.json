@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1071280268925",
+    "project_id": "fir-kmmdemo",
+    "storage_bucket": "fir-kmmdemo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1071280268925:android:65b316d7918645b9b97314",
+        "android_client_info": {
+          "package_name": "com.nekzabirov.demo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB14nIB0uhVcJtXiGlJyDQWx1vMwr1Gmp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

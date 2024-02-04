@@ -1,5 +1,5 @@
 [versions]
-project = "1.0.0"
+project = "2.0.0"
 iosDeploymentTarget = "14.1"
 activityKtx = "1.8.2"
 agp = "8.2.2"

@@ -6,7 +6,7 @@ plugins {
 }
 
 subprojects {
-    version = "1.0.0"
+    version = rootProject.libs.versions.project.get()
 
     plugins.apply("maven-publish")
 
@@ -43,5 +43,5 @@ tasks.register("publishAll") {
 }
 
 tasks.register("publishLocalAll") {
-    dependsOn(subprojects.mapNotNull { it.tasks["publishLocal"] })
+    dependsOn(subprojects.mapNotNull { it.tasks["publishToMavenLocal"] })
 }
