@@ -25,12 +25,11 @@ kotlin {
 
         framework {
             baseName = "firebase_app"
-            isStatic = false
+            isStatic = true
         }
 
         pod("FirebaseCore")  {
             extraOpts += listOf("-compiler-option", "-fmodules")
-            git("https://github.com/firebase/firebase-ios-sdk.git")
         }
     }
     

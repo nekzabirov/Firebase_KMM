@@ -25,12 +25,11 @@ kotlin {
 
         framework {
             baseName = "firebase_auth"
-            isStatic = false
+            isStatic = true
         }
 
         pod("FirebaseAuth")  {
             extraOpts += listOf("-compiler-option", "-fmodules")
-            git("https://github.com/firebase/firebase-ios-sdk.git")
         }
     }
 

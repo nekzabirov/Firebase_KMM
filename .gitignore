@@ -129,3 +129,6 @@ Temporary Items
 .kotlin_native/
 konan/
 kotlin-build/
+
+#Demos
+Demo/iosApp/Pods
