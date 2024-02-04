@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
+@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class, ExperimentalForeignApi::class)
 
 package com.nekzabirov.firebaseauth.provider
 
@@ -12,7 +12,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class PhoneAuthProviderImpl: PhoneAuthProvider {
+class PhoneAuthProviderImpl internal constructor(): PhoneAuthProvider {
     override suspend fun verifyPhoneNumber(activity: KActivity, phoneNumber: String): String = suspendCoroutine { cont ->
         FIRPhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, null) { verificationId, error ->
             if (verificationId != null) {
@@ -30,3 +30,6 @@ class PhoneAuthProviderImpl: PhoneAuthProvider {
     }
 
 }
+
+actual fun phoneAuthProvider(): PhoneAuthProvider =
+    PhoneAuthProviderImpl()

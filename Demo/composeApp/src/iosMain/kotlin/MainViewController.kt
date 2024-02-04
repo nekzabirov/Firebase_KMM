@@ -1,3 +1,5 @@
 import androidx.compose.ui.window.ComposeUIViewController
 
-fun MainViewController() = ComposeUIViewController { App() }
+private val instance by lazy { ComposeUIViewController { App() } }
+
+fun MainViewController() = instance

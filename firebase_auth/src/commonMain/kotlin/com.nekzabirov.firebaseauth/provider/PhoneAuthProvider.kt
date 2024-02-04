@@ -8,3 +8,5 @@ interface PhoneAuthProvider {
 
     fun getCredential(verificationId: String, code: String): AuthCredential
 }
+
+expect fun phoneAuthProvider(): PhoneAuthProvider

@@ -11,7 +11,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class PhoneAuthProviderImpl: PhoneAuthProvider {
+class PhoneAuthProviderImpl internal constructor(): PhoneAuthProvider {
     override suspend fun verifyPhoneNumber(activity: KActivity, phoneNumber: String): String = suspendCoroutine { cont ->
         val callbacks = object : com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(p0: PhoneAuthCredential) {}
@@ -44,3 +44,6 @@ class PhoneAuthProviderImpl: PhoneAuthProvider {
         return AuthCredentialImpl(cred)
     }
 }
+
+actual fun phoneAuthProvider(): PhoneAuthProvider =
+    PhoneAuthProviderImpl()

@@ -7,12 +7,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.nekzabirov.navigatio.common.state.rememberNavController
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import screen.rememberViewModel
 
 @Composable
 fun LoginScreen(mViewModel: LoginViewModel = rememberViewModel { LoginViewModel() }) {
+    val navController = rememberNavController("main")
+
     val snackbarHostState = remember { SnackbarHostState() }
 
     Scaffold(
@@ -22,9 +25,9 @@ fun LoginScreen(mViewModel: LoginViewModel = rememberViewModel { LoginViewModel(
                 Snackbar(it)
             }
         }
-    ) {
+    ) { padding ->
         Column(
-            modifier = Modifier.fillMaxSize().padding(it),
+            modifier = Modifier.fillMaxSize().padding(padding),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -70,6 +73,12 @@ fun LoginScreen(mViewModel: LoginViewModel = rememberViewModel { LoginViewModel(
                         Text("Login")
                     }
                 }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            TextButton(onClick = {navController.navigate("phone_auth")}) {
+                Text("Phone auth")
             }
         }
     }
