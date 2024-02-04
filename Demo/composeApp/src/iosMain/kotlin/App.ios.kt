@@ -1,6 +1,7 @@
 import androidx.compose.runtime.Composable
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseapp.KContext
+import com.nekzabirov.firebaseauth.KFirebaseAuth
 import platform.Foundation.NSUserDefaults
 
 @Composable

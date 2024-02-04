@@ -122,6 +122,15 @@ class KFirebaseAuthImpl internal constructor(private val firebaseAuth: FIRAuth):
         }
     }
 
+    override fun signOut() {
+        firebaseAuth.signOut(null)
+    }
+
+    fun canHandleURL(url: platform.Foundation.NSURL) =
+        firebaseAuth.canHandleURL(url)
+
+    fun canHandleNotification(userInfo: Map<Any?, *>) =
+        firebaseAuth.canHandleNotification(userInfo)
 }
 
 internal actual fun getInstance(): KFirebaseAuth =

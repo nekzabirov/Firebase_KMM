@@ -25,6 +25,8 @@ interface KFirebaseAuth {
 
     suspend fun signInWithProvider(activity: KActivity, provider: OAuthProvider)
 
+    fun signOut()
+
     companion object {
         val instance: KFirebaseAuth = getInstance()
     }

@@ -41,8 +41,7 @@ class KFirebaseAppImpl internal constructor(private val firebaseApp: FIRApp): KF
 }
 
 internal actual fun kInitializeFirebase(context: KContext): KFirebaseApp? {
-    FIRApp.configure()
-    FIRApp.initialize()
+    try { FIRApp.initialize() } catch (e: Exception) {}
     return FIRApp.defaultApp()?.let { KFirebaseAppImpl(it) }
 }
 

@@ -67,6 +67,10 @@ class KFirebaseAuthImpl internal constructor(private val firebaseAuth: FirebaseA
             .startActivityForSignInWithProvider(activity, platformProvider)
             .await()
     }
+
+    override fun signOut() {
+        firebaseAuth.signOut()
+    }
 }
 
 internal actual fun getInstance(): KFirebaseAuth =
