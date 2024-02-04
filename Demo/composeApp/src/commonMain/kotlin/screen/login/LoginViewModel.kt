@@ -2,8 +2,6 @@ package screen.login
 
 import com.nekzabirov.firebaseauth.KFirebaseAuth
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import screen.ViewModel
 
@@ -21,27 +19,18 @@ sealed interface LoginState {
     data object LoginSuccess: LoginState
 }
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel: ViewModel<LoginState, LoginEvent>(LoginState.Empty) {
     private val auth = KFirebaseAuth.instance
 
-    private val _state = MutableStateFlow<LoginState>(LoginState.Empty)
-    val state: StateFlow<LoginState> = _state
-
-    private val _event = Channel<LoginEvent>(100)
-
-    init {
-        _event.receiveAsFlow()
-            .onEach {
-                when (it) {
-                    is LoginEvent.Login -> login(it.email, it.password)
-                    is LoginEvent.Register -> register(it.email, it.password)
-                }
-            }
-            .launchIn(this)
+    override fun process(event: LoginEvent) {
+        when (event) {
+            is LoginEvent.Login -> login(event.email, event.password)
+            is LoginEvent.Register -> register(event.email, event.password)
+        }
     }
 
     private fun login(email: String, password: String) = launch(Dispatchers.Unconfined) {
-        startLoding()
+        startLoading()
 
         try {
             auth.signInWithEmailAndPassword(email, password)
@@ -52,7 +41,7 @@ class LoginViewModel: ViewModel() {
     }
 
     private fun register(email: String, password: String) = launch(Dispatchers.Unconfined) {
-        startLoding()
+        startLoading()
 
         try {
             auth.createUserWithEmailAndPassword(email, password)
@@ -62,11 +51,7 @@ class LoginViewModel: ViewModel() {
         }
     }
 
-    private fun startLoding() {
+    private fun startLoading() {
         _state.value = LoginState.Loading
-    }
-
-    fun sendEvent(event: LoginEvent) {
-        _event.trySend(event)
     }
 }
