@@ -28,6 +28,10 @@ sealed interface PhoneAuthEvent {
 class PhoneAuthViewModel: ViewModel<PhoneAuthState, PhoneAuthEvent>(PhoneAuthState.Empty) {
     private val auth = KFirebaseAuth.instance
 
+    init {
+        println("Nek PhoneAuthViewModel init")
+    }
+
     override fun process(event: PhoneAuthEvent) {
         when (event) {
             is PhoneAuthEvent.Verify -> verify(event.activity, event.phoneNumber)
