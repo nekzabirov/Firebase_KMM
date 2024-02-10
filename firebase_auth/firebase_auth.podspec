@@ -8,7 +8,7 @@ Pod::Spec.new do |spec|
     spec.summary                  = ''
     spec.vendored_frameworks      = 'build/cocoapods/framework/firebase_auth.framework'
     spec.libraries                = 'c++'
-    spec.ios.deployment_target = '14.1'
+    spec.ios.deployment_target = '17.2'
     spec.dependency 'FirebaseAuth'
                 
     if !Dir.exist?('build/cocoapods/framework/firebase_auth.framework') || Dir.empty?('build/cocoapods/framework/firebase_auth.framework')

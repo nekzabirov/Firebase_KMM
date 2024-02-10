@@ -8,12 +8,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import com.nekzabirov.navigatio.common.state.rememberNavController
+import com.nekzabirov.viewmodel.*
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import screen.rememberViewModel
 
 @Composable
-fun LoginScreen(mViewModel: LoginViewModel = rememberViewModel { LoginViewModel() }) {
+fun LoginScreen(mViewModel: LoginViewModel = viewModel(LoginViewModel::class) { LoginViewModel() }) {
     val navController = rememberNavController("main")
 
     val snackbarHostState = remember { SnackbarHostState() }
@@ -77,7 +77,7 @@ fun LoginScreen(mViewModel: LoginViewModel = rememberViewModel { LoginViewModel(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            TextButton(onClick = {navController.navigate("phone_auth")}) {
+            TextButton(onClick = { navController.navigate("phone_auth") }) {
                 Text("Phone auth")
             }
         }

@@ -3,9 +3,12 @@ package screen.phoneauth
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.KFirebaseAuth
 import com.nekzabirov.firebaseauth.provider.phoneAuthProvider
+import com.nekzabirov.viewmodel.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import screen.ViewModel
+import screen.login.LoginViewModel
+import kotlin.reflect.KClass
 
 sealed interface PhoneAuthState {
     data object Empty: PhoneAuthState
@@ -26,11 +29,8 @@ sealed interface PhoneAuthEvent {
 }
 
 class PhoneAuthViewModel: ViewModel<PhoneAuthState, PhoneAuthEvent>(PhoneAuthState.Empty) {
-    private val auth = KFirebaseAuth.instance
 
-    init {
-        println("Nek PhoneAuthViewModel init")
-    }
+    private val auth = KFirebaseAuth.instance
 
     override fun process(event: PhoneAuthEvent) {
         when (event) {

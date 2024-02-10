@@ -21,8 +21,8 @@ subprojects {
                 url = uri("https://maven.pkg.github.com/nekzabirov/Firebase_KMM")
 
                 credentials {
-                    username = System.getenv("GITHUB_USERNAME")
-                    password = System.getenv("GITHUB_WRITE_TOKEN")
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
                 }
             }
         }

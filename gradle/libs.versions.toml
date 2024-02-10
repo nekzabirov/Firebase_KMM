@@ -1,12 +1,12 @@
 [versions]
 project = "2.0.0"
-iosDeploymentTarget = "14.1"
+iosDeploymentTarget = "17.2"
 activityKtx = "1.8.2"
 agp = "8.2.2"
 android-minSdk = "26"
 android-compileSdk = "34"
 appcompat = "1.6.1"
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }

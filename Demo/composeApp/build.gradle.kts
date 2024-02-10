@@ -1,6 +1,3 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
@@ -26,7 +23,7 @@ kotlin {
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
         version = "1.0"
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = "17.2"
         podfile = project.file("../iosApp/Podfile")
 
         framework {
@@ -57,6 +54,7 @@ kotlin {
             implementation(libs.firebase.auth)
 
             implementation(libs.navigation)
+            implementation("com.nekzabirov:viewmodel:1.0.0")
         }
     }
 }

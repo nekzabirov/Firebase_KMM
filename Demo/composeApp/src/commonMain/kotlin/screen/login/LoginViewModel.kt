@@ -1,9 +1,11 @@
 package screen.login
 
 import com.nekzabirov.firebaseauth.KFirebaseAuth
+import com.nekzabirov.viewmodel.ViewModelProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import screen.ViewModel
+import kotlin.reflect.KClass
 
 sealed interface LoginEvent {
     data class Register(val email: String, val password: String): LoginEvent
@@ -20,6 +22,7 @@ sealed interface LoginState {
 }
 
 class LoginViewModel: ViewModel<LoginState, LoginEvent>(LoginState.Empty) {
+
     private val auth = KFirebaseAuth.instance
 
     override fun process(event: LoginEvent) {

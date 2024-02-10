@@ -6,13 +6,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.nekzabirov.viewmodel.viewModel
 import getKActivity
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import screen.rememberViewModel
 
 @Composable
-fun PhoneAuthScreen(mViewModel: PhoneAuthViewModel = rememberViewModel { PhoneAuthViewModel() }) {
+fun PhoneAuthScreen(mViewModel: PhoneAuthViewModel = viewModel(PhoneAuthViewModel::class) { PhoneAuthViewModel() }) {
     val activity = getKActivity()
     val snackbarHostState = remember { SnackbarHostState() }
 

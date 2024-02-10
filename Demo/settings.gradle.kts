@@ -15,6 +15,11 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        maven {
+            url = uri("https://maven.pkg.github.com/nekzabirov/KMM-Compose-Navigation")
+            url = uri("https://maven.pkg.github.com/nekzabirov/Viewmodel_KMM")
+            url = uri("https://maven.pkg.github.com/nekzabirov/Firebase_KMM")
+        }
         mavenLocal()
     }
 }

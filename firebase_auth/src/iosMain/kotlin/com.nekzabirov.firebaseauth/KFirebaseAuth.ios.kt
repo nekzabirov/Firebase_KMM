@@ -126,6 +126,7 @@ class KFirebaseAuthImpl internal constructor(private val firebaseAuth: FIRAuth):
         firebaseAuth.signOut(null)
     }
 
+    @OptIn(ExperimentalForeignApi::class)
     fun canHandleURL(url: platform.Foundation.NSURL) =
         firebaseAuth.canHandleURL(url)
 
