@@ -2,7 +2,7 @@
 
 package com.nekzabirov.firebaseauth.user
 
-import cocoapods.FirebaseAuth.FIRUser
+import com.google.firebase.FIRUser
 import com.nekzabirov.firebaseapp.ex.toKotlin
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.credential.AuthCredentialImpl

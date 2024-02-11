@@ -1,10 +1,13 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.googleService)
-    kotlin("native.cocoapods")
 }
+
 
 kotlin {
     androidTarget {
@@ -14,47 +17,36 @@ kotlin {
             }
         }
     }
-
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    cocoapods {
-        summary = "Some description for the Shared Module"
-        homepage = "Link to the Shared Module homepage"
-        version = "1.0"
-        ios.deploymentTarget = "17.2"
-        podfile = project.file("../iosApp/Podfile")
-
-        framework {
+    
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-        }
-
-        pod("FirebaseCore") {
-            extraOpts += listOf("-compiler-option", "-fmodules")
-        }
-        pod("FirebaseAuth") {
-            extraOpts += listOf("-compiler-option", "-fmodules")
         }
     }
     
     sourceSets {
         androidMain.dependencies {
-            implementation(libs.androidx.core.ktx)
+            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
         }
-
         commonMain.dependencies {
             implementation(compose.runtime)
-            implementation(compose.material3)
-            implementation(compose.animation)
+            implementation(compose.foundation)
+            implementation(compose.material)
+            implementation(compose.ui)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.components.resources)
 
             implementation(libs.firebase.app)
             implementation(libs.firebase.auth)
 
             implementation(libs.navigation)
-            implementation("com.nekzabirov:viewmodel:1.0.0")
+            implementation(libs.viewmodel)
         }
     }
 }
@@ -88,5 +80,24 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    dependencies {
+        debugImplementation(libs.compose.ui.tooling)
+    }
 }
 
+tasks {
+    val firebaseDir = rootDir.parent
+    val firebaseCorePath = "$firebaseDir/firebase_app/src/iosMain/libs/FirebaseCore"
+    val firebaseAuthPath = "$firebaseDir/firebase_auth/src/iosMain/libs/FirebaseAuth"
+
+    val embedArm64 by creating {
+        val path = "$buildDir/xcode-frameworks/Debug/iphonesimulator17.2"
+
+        copy {
+            from(firebaseCorePath, firebaseAuthPath)
+            into(path)
+        }
+    }
+
+    findByName("embedAndSignAppleFrameworkForXcode")?.dependsOn(embedArm64)
+}

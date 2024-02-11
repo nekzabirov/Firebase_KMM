@@ -2,7 +2,7 @@
 
 package com.nekzabirov.firebaseauth.provider
 
-import cocoapods.FirebaseAuth.FIRPhoneAuthProvider
+import com.google.firebase.FIRPhoneAuthProvider
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseapp.ex.toKotlin
 import com.nekzabirov.firebaseauth.credential.AuthCredential

@@ -2,7 +2,7 @@
 
 package com.nekzabirov.firebaseauth.provider
 
-import cocoapods.FirebaseAuth.FIRGoogleAuthProvider
+import com.google.firebase.FIRGoogleAuthProvider
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.credential.AuthCredentialImpl
 import kotlinx.cinterop.ExperimentalForeignApi

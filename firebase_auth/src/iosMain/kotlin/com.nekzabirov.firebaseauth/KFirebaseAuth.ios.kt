@@ -2,9 +2,8 @@
 @file:Suppress("UNCHECKED_CAST")
 
 package com.nekzabirov.firebaseauth
-
-import cocoapods.FirebaseAuth.FIRAuth
-import cocoapods.FirebaseAuth.FIROAuthProvider
+import com.google.firebase.FIRAuth
+import com.google.firebase.FIROAuthProvider
 import com.nekzabirov.firebaseapp.KActivity
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.coroutines.resume

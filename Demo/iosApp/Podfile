@@ -1,4 +1,0 @@
-target 'iosApp' do
-  use_frameworks!
-  pod 'composeApp', :path => '../composeApp'
-end

@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
-    kotlin("native.cocoapods")
 }
+
+val firebaseAuthPath = "${projectDir}/src/iosMain/libs/FirebaseAuth"
 
 @OptIn(org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi::class)
 kotlin {
@@ -15,21 +16,27 @@ kotlin {
         publishAllLibraryVariants()
     }
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
-    cocoapods {
-        version = libs.versions.project.get()
-        ios.deploymentTarget = libs.versions.iosDeploymentTarget.get()
-
-        framework {
-            baseName = "firebase_auth"
-            isStatic = true
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach {
+        it.binaries {
+            framework {
+                version = libs.versions.project.get()
+                baseName = "firebase_auth"
+                isStatic = true
+                linkerOpts.add("-framework FirebaseAuth -F$firebaseAuthPath")
+                embedBitcode("disable")
+            }
         }
 
-        pod("FirebaseAuth")  {
-            extraOpts += listOf("-compiler-option", "-fmodules")
+        it.compilations.getByName("main").cinterops {
+            val firebaseAuth by creating {
+                defFile = file("$firebaseAuthPath/firebaseAuth.def")
+                includeDirs(firebaseAuthPath)
+                compilerOpts("-F$firebaseAuthPath")
+            }
         }
     }
 
@@ -51,4 +58,47 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+}
+
+tasks {
+    val embedArm64 by creating {
+        val path = "${buildDir}/bin/iosArm64"
+
+        copy {
+            from(firebaseAuthPath)
+            into("$path/debugFramework")
+        }
+
+        copy {
+            from(firebaseAuthPath)
+            into("$path/releaseFramework")
+        }
+    }
+
+    val embedSimArm64 by creating {
+        copy {
+            from(firebaseAuthPath)
+            into("${buildDir}/bin/iosSimulatorArm64/debugFramework")
+        }
+        copy {
+            from(firebaseAuthPath)
+            into("${buildDir}/bin/iosSimulatorArm64/releaseFramework")
+        }
+    }
+
+    val embedSimX64 by creating {
+        copy {
+            from(firebaseAuthPath)
+            into("${buildDir}/bin/iosX64/debugFramework")
+        }
+
+        copy {
+            from(firebaseAuthPath)
+            into("${buildDir}/bin/iosX64/releaseFramework")
+        }
+    }
+
+    findByName("compileKotlinIosArm64")?.dependsOn(embedArm64)
+    findByName("compileKotlinIosSimulatorArm64")?.dependsOn(embedSimArm64)
+    findByName("compileKotlinIosX64")?.dependsOn(embedSimX64)
 }

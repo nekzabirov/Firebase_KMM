@@ -3,7 +3,7 @@
 
 package com.nekzabirov.firebaseapp
 
-import cocoapods.FirebaseCore.FIRApp
+import com.google.firebase.FIRApp
 import kotlinx.cinterop.ExperimentalForeignApi
 
 class KFirebaseAppImpl internal constructor(private val firebaseApp: FIRApp): KFirebaseApp {
@@ -41,6 +41,7 @@ class KFirebaseAppImpl internal constructor(private val firebaseApp: FIRApp): KF
 }
 
 internal actual fun kInitializeFirebase(context: KContext): KFirebaseApp? {
+    try { FIRApp.configure() } catch (e: Exception) {}
     try { FIRApp.initialize() } catch (e: Exception) {}
     return FIRApp.defaultApp()?.let { KFirebaseAppImpl(it) }
 }

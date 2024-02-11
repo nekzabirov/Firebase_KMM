@@ -2,7 +2,7 @@
 
 package com.nekzabirov.firebaseauth.credential
 
-import cocoapods.FirebaseAuth.FIRAuthCredential
+import com.google.firebase.FIRAuthCredential
 import kotlinx.cinterop.ExperimentalForeignApi
 
 internal class AuthCredentialImpl internal constructor(internal val credential: FIRAuthCredential): AuthCredential {
