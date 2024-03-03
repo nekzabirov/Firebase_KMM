@@ -1,12 +1,8 @@
-@file:OptIn(ExperimentalForeignApi::class, ExperimentalForeignApi::class)
-@file:Suppress("UNCHECKED_CAST")
-
 package com.nekzabirov.firebaseauth
 
 import cocoapods.FirebaseAuth.FIRAuth
 import cocoapods.FirebaseAuth.FIROAuthProvider
 import com.nekzabirov.firebaseapp.KActivity
-import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -14,9 +10,16 @@ import com.nekzabirov.firebaseapp.ex.toKotlin
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.credential.AuthCredentialImpl
 import com.nekzabirov.firebaseauth.provider.OAuthProvider
+import com.nekzabirov.firebaseauth.user.KFirebaseUser
+import com.nekzabirov.firebaseauth.user.KFirebaseUserImpl
+import kotlinx.cinterop.ExperimentalForeignApi
 
+@ExperimentalForeignApi
 class KFirebaseAuthImpl internal constructor(private val firebaseAuth: FIRAuth): KFirebaseAuth {
     private val stateListeners = arrayListOf<KFirebaseAuth.AuthStateListener>()
+
+    override val currentUser: KFirebaseUser?
+        get() = firebaseAuth.currentUser?.let { KFirebaseUserImpl(it) }
 
     init {
         firebaseAuth.addAuthStateDidChangeListener { _, _ ->
@@ -134,5 +137,6 @@ class KFirebaseAuthImpl internal constructor(private val firebaseAuth: FIRAuth):
         firebaseAuth.canHandleNotification(userInfo)
 }
 
+@ExperimentalForeignApi
 internal actual fun getInstance(): KFirebaseAuth =
     KFirebaseAuthImpl(FIRAuth.auth())

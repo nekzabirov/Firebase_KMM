@@ -7,6 +7,7 @@ import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseapp.ex.toKotlin
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.credential.AuthCredentialImpl
+import com.nekzabirov.firebaseauth.credential.PhoneAuthCredentialImpl
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -23,10 +24,10 @@ class PhoneAuthProviderImpl internal constructor(): PhoneAuthProvider {
         }
     }
 
-    override fun getCredential(verificationId: String, code: String): AuthCredential {
+    override fun getCredential(verificationId: String, code: String): com.nekzabirov.firebaseauth.credential.PhoneAuthCredential {
         val cred = FIRPhoneAuthProvider.provider().credentialWithVerificationID(verificationId, code)
 
-        return AuthCredentialImpl(cred)
+        return PhoneAuthCredentialImpl(cred)
     }
 
 }

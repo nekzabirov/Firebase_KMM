@@ -2,6 +2,7 @@ package com.nekzabirov.firebaseauth.provider
 
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.credential.AuthCredential
+import com.nekzabirov.firebaseauth.credential.PhoneAuthCredential
 
 /**
  * Interface representing phone number authentication provider.
@@ -22,9 +23,9 @@ interface PhoneAuthProvider {
      *
      * @param verificationId The verification ID obtained from the phone number verification process.
      * @param code The verification code entered by the user.
-     * @return An [AuthCredential] object representing phone number authentication.
+     * @return An [PhoneAuthCredential] object representing phone number authentication.
      */
-    fun getCredential(verificationId: String, code: String): AuthCredential
+    fun getCredential(verificationId: String, code: String): PhoneAuthCredential
 }
 
 /**

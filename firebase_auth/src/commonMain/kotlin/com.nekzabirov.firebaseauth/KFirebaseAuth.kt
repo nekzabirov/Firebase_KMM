@@ -3,12 +3,15 @@ package com.nekzabirov.firebaseauth
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.provider.OAuthProvider
+import com.nekzabirov.firebaseauth.user.KFirebaseUser
 
 /**
  * Interface representing Firebase Authentication functionality.
  * To create platform instance use [getInstance](#getInstance).
  */
 interface KFirebaseAuth {
+    val currentUser: KFirebaseUser?
+
     /**
      * Adds a listener to track authentication state changes.
      * @param listener The listener to add.

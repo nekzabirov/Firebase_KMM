@@ -31,6 +31,14 @@ subprojects {
     group = "com.nekzabirov.firebase"
 }
 
+allprojects {
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        kotlinOptions {
+            freeCompilerArgs += "-Xopt-in=kotlinx.cinterop.ExperimentalForeignApi"
+        }
+    }
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
     subprojects {

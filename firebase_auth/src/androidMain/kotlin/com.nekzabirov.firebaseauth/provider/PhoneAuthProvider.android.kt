@@ -38,10 +38,10 @@ class PhoneAuthProviderImpl internal constructor(): PhoneAuthProvider {
         com.google.firebase.auth.PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-    override fun getCredential(verificationId: String, code: String): AuthCredential {
+    override fun getCredential(verificationId: String, code: String): com.nekzabirov.firebaseauth.credential.PhoneAuthCredential {
         val cred = com.google.firebase.auth.PhoneAuthProvider.getCredential(verificationId, code)
 
-        return AuthCredentialImpl(cred)
+        return com.nekzabirov.firebaseauth.credential.PhoneAuthCredentialImpl(cred)
     }
 }
 

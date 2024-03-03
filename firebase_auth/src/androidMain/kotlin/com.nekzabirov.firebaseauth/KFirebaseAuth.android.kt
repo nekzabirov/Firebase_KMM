@@ -5,10 +5,15 @@ import com.google.firebase.auth.OAuthProvider
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.credential.AuthCredentialImpl
+import com.nekzabirov.firebaseauth.user.KFirebaseUser
+import com.nekzabirov.firebaseauth.user.KFirebaseUserImpl
 import kotlinx.coroutines.tasks.await
 
 class KFirebaseAuthImpl internal constructor(private val firebaseAuth: FirebaseAuth): KFirebaseAuth {
     private val stateListeners = arrayListOf<KFirebaseAuth.AuthStateListener>()
+
+    override val currentUser: KFirebaseUser?
+        get() = firebaseAuth.currentUser?.let { KFirebaseUserImpl(it) }
 
     init {
         firebaseAuth.addAuthStateListener { _ -> stateListeners.forEach { it.onAuthStateChanged(this) } }
