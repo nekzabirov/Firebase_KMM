@@ -12,6 +12,7 @@ import com.nekzabirov.firebaseauth.credential.PhoneAuthCredential
 import com.nekzabirov.firebaseauth.credential.PhoneAuthCredentialImpl
 import com.nekzabirov.firebaseauth.provider.OAuthProvider
 import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSURL
 import platform.Foundation.timeIntervalSince1970
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -203,6 +204,21 @@ class KFirebaseUserImpl internal constructor(private val user: FIRUser) : KFireb
         }
 
         user.linkWithProvider(platformProvider, null) { _, error ->
+            if (error != null) {
+                cont.resumeWithException(error.toKotlin())
+            } else {
+                cont.resume(Unit)
+            }
+        }
+    }
+
+    override suspend fun updateProfile(request: KUserProfileChangeRequest) = suspendCoroutine { cont ->
+        val platformRequest = user.profileChangeRequest().apply {
+            setDisplayName(request.displayName)
+            setPhotoURL(request.photoUrl?.let { NSURL.URLWithString(it) })
+        }
+
+        platformRequest.commitChangesWithCompletion { error ->
             if (error != null) {
                 cont.resumeWithException(error.toKotlin())
             } else {

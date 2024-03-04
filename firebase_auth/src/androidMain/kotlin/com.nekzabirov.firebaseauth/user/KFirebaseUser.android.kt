@@ -1,6 +1,8 @@
 package com.nekzabirov.firebaseauth.user
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.nekzabirov.firebaseapp.KActivity
 import com.nekzabirov.firebaseauth.credential.AuthCredential
 import com.nekzabirov.firebaseauth.credential.AuthCredentialImpl
@@ -125,4 +127,12 @@ class KFirebaseUserImpl internal constructor(private val user: FirebaseUser) : K
         user.startActivityForLinkWithProvider(activity, platformProvider).await()
     }
 
+    override suspend fun updateProfile(request: KUserProfileChangeRequest) {
+        val platformRequest = UserProfileChangeRequest.Builder()
+            .setDisplayName(request.displayName)
+            .setPhotoUri(Uri.parse(request.photoUrl))
+            .build()
+
+        user.updateProfile(platformRequest).await()
+    }
 }

@@ -49,4 +49,6 @@ interface KFirebaseUser : KUserInfo {
     suspend fun updatePassword(password: String)
 
     suspend fun updatePhoneNumber(phoneAuthCredential: PhoneAuthCredential)
+
+    suspend fun updateProfile(request: KUserProfileChangeRequest)
 }
