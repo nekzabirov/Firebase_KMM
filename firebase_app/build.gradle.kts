@@ -35,7 +35,8 @@ kotlin {
     
     sourceSets {
         androidMain.dependencies {
-            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:32.1.1"))
+            implementation(project.dependencies.platform("com.google.firebase:firebase-bom:32.7.3"))
+            //noinspection UseTomlInstead
             implementation("com.google.firebase:firebase-common")
         }
     }

@@ -39,6 +39,7 @@ kotlin {
         }
 
         androidMain.dependencies {
+            //noinspection UseTomlInstead
             implementation("com.google.firebase:firebase-auth")
         }
     }
