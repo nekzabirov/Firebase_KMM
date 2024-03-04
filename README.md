@@ -35,7 +35,17 @@ plugins {
 }
 ```
 
-`ios.deploymentTarget` is important must be 14.1 or newer
+```
+cocoapods {
+    ...
+    pod("FirebaseCore") {
+        extraOpts += listOf("-compiler-option", "-fmodules")
+    }
+    ...
+}
+```
+
+`ios.deploymentTarget` is important must be 17.2 or newer
 
 <h3>Dependencies</h3>
 
@@ -43,12 +53,12 @@ plugins {
 
 ```
 val commonMain by getting {
-            dependencies {
-                ...
-                api("com.nekzabirov.firebase:firebase_app:$last_version")
-                ...
-            }
-        }
+    dependencies {
+        ...
+        api("com.nekzabirov.firebase:firebase_app:$last_version")
+        ...
+    }
+}
 ```
 
 
